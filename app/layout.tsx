@@ -14,7 +14,7 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: "Köpenick Radar",
+  title: "Köpenick Kiezradar",
   description: "Hyperlokales Monitoring-Tool für Berlin-Köpenick",
 };
 

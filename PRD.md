@@ -1,4 +1,4 @@
-# Köpenick Radar — PRD v0.2
+# Köpenick Kiezradar — PRD v0.2
 
 ## 1. Was
 
