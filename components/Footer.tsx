@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="text-xs" style={{ color: "var(--ink-soft)" }}>
           <p className="mb-2">
             <span style={{ fontFamily: "var(--font-fraunces)", fontWeight: 500 }}>
-              Köpenick Radar
+              Köpenick Kiezradar
             </span>{" "}
             · Iteration 1 · Mock-Daten
           </p>

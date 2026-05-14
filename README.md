@@ -1,4 +1,4 @@
-# Köpenick Radar
+# Köpenick Kiezradar
 
 > Hyperlokales Monitoring-Tool für Berlin-Köpenick. Aggregiert öffentliche Meldungen aus Polizei, Bezirksamt, BVV. Fasst per KI zusammen. Bewertet lokale Relevanz.
 

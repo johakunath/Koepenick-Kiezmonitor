@@ -4,7 +4,7 @@ Diese Datei ist die Anleitung für Claude Code (und Codex), wenn an diesem Repo 
 
 ## Projekt-Kontext in 3 Sätzen
 
-Köpenick Radar ist ein hyperlokales Monitoring-Tool für Berlin-Köpenick, gebaut von zwei Nachbarn ohne Programmiererfahrung. Es aggregiert öffentliche Meldungen, fasst sie per Claude API zusammen und zeigt sie in einem mobilfähigen Feed. Vollständiges Briefing in `PRD.md`.
+Köpenick Kiezradar ist ein hyperlokales Monitoring-Tool für Berlin-Köpenick, gebaut von zwei Nachbarn ohne Programmiererfahrung. Es aggregiert öffentliche Meldungen, fasst sie per Claude API zusammen und zeigt sie in einem mobilfähigen Feed. Vollständiges Briefing in `PRD.md`.
 
 ## Working Principles
 

@@ -15,9 +15,9 @@ Ein React-Prototyp existiert (`prototype/koepenick-radar-v0.jsx`) als Design-Ref
 
 ## Repo-Name vs. Produktname
 
-- **Repo:** `Koepenick-Kiezmonitor` (GitHub-URL)
-- **Produktname:** Köpenick Radar (im UI, im Code)
-- Wenn du Variablen, Komponent-Namen, etc. vergibst: nutze `KoepenickRadar` / `koepenick-radar`
+- **Repo:** `Koepenick-Kiezradar` (GitHub-URL)
+- **Produktname:** Köpenick Kiezradar (im UI, im Code)
+- Wenn du Variablen, Komponent-Namen, etc. vergibst: nutze `KoepenickKiezradar` / `koepenick-kiezradar`
 
 ---
 
@@ -105,7 +105,7 @@ Tags: `verkehr | sicherheit | verwaltung | politik | infrastruktur | sonstiges`
 - `/woche` — Wochenüberblick
 
 ### Feed (`/`)
-- Header: Logo (Wasser-Wellen-SVG) + "Köpenick Radar" (Fraunces) + Datum + Eintrag-Count
+- Header: Logo (Wasser-Wellen-SVG) + "Köpenick Kiezradar" (Fraunces) + Datum + Eintrag-Count
 - Disclaimer-Banner (dismissable, Session-State)
 - Sticky Tag-Filter: 6 Toggle-Chips, Multi-Select
 - Card-Liste (sorted by published_at desc)

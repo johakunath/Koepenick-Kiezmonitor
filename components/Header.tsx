@@ -53,7 +53,7 @@ export default function Header({ count }: HeaderProps) {
                 color: "var(--water-deep)",
               }}
             >
-              Köpenick Radar
+              Köpenick Kiezradar
             </h1>
           </div>
           <Link
