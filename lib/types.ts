@@ -5,6 +5,7 @@ export type Tag =
   | "politik"
   | "infrastruktur"
   | "veranstaltung"
+  | "wahl"
   | "sonstiges";
 
 export interface Entry {
@@ -44,13 +45,15 @@ export const TAG_LABELS: Record<Tag, string> = {
   verkehr: "Verkehr",
   sicherheit: "Sicherheit",
   verwaltung: "Verwaltung",
-  politik: "Politik & Wahl",
+  politik: "Politik",
   infrastruktur: "Infrastruktur",
   veranstaltung: "Veranstaltung",
+  wahl: "Wahl 2026",
   sonstiges: "Sonstiges",
 };
 
 export const ALL_TAGS: Tag[] = [
+  "wahl",
   "verkehr",
   "sicherheit",
   "verwaltung",

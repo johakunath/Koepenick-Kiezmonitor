@@ -34,7 +34,10 @@ export default function FeedPage() {
 
   const filtered = useMemo(() => {
     return entries.filter((e) => {
-      const tagMatch = activeTags.length === 0 || e.tags.some((t) => activeTags.includes(t));
+      const tagMatch =
+        activeTags.length === 0 ||
+        e.tags.some((t) => activeTags.includes(t)) ||
+        (activeTags.includes("wahl") && e.election_relevant);
       const districtMatch =
         activeDistricts.length === 0 ||
         (e.district != null && activeDistricts.includes(e.district as District));
@@ -60,7 +63,6 @@ export default function FeedPage() {
       <Header count={entries.length} />
 
       <WahlWatch electionCount={entries.filter((e) => e.election_relevant).length} />
-      <DisclaimerBanner />
 
       <TagFilter activeTags={activeTags} onToggle={toggleTag} onReset={() => setActiveTags([])} />
       <DistrictFilter
@@ -106,6 +108,7 @@ export default function FeedPage() {
         </div>
       </main>
 
+      <DisclaimerBanner />
       <Footer />
     </div>
   );

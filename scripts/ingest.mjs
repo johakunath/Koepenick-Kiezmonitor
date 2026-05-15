@@ -35,6 +35,7 @@ const TAGS = [
   "politik",
   "infrastruktur",
   "veranstaltung",
+  "wahl",
   "sonstiges",
 ];
 
@@ -160,7 +161,8 @@ function inferTags(text, sourceId) {
   if (sourceId === "berlin-events") tags.add("veranstaltung");
   if (sourceId === "bezirksamt-tk") tags.add("verwaltung");
   if (/verkehr|unfall|straße|strasse|sperrung|bahn|rad/.test(haystack)) tags.add("verkehr");
-  if (/bvv|wahl|partei|antrag|senat|politik/.test(haystack)) tags.add("politik");
+  if (/bvv|partei|antrag|senat|politik/.test(haystack)) tags.add("politik");
+  if (/wahl|kandidat|wahlkreis|abgeordnetenhaus/.test(haystack)) tags.add("wahl");
   if (/bau|schule|kita|wasser|strom|sanierung|infrastruktur/.test(haystack)) {
     tags.add("infrastruktur");
   }
