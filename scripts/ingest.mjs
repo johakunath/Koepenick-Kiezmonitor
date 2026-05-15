@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ENTRIES_PATH = path.join(ROOT, "data", "entries.json");
 const ARCHIVE_DIR = path.join(ROOT, "data", "archive");
+const STATUS_PATH = path.join(ROOT, "data", "ingest-status.json");
 
 const POLICE_RSS_URL = "https://www.berlin.de/polizei/polizeimeldungen/index/rss.php";
 const POLICE_PAGE_URL = "https://www.berlin.de/polizei/polizeimeldungen/";
@@ -426,18 +427,56 @@ async function writeArchive(entries) {
 async function main() {
   const options = parseArgs();
   const existing = JSON.parse(await readFile(ENTRIES_PATH, "utf8"));
-  const policeText = options.fixturePolice
-    ? await readText(POLICE_RSS_URL, options.fixturePolice)
-    : await readText(POLICE_RSS_URL).catch(async () => readText(POLICE_PAGE_URL).catch(() => ""));
-  const eventsHtml = await readText(EVENTS_URL, options.fixtureEvents).catch(() => "");
-  const bezirksamtText = await readText(BEZIRKSAMT_RSS_URL, options.fixtureBezirksamt)
-    .catch(async () => readText(BEZIRKSAMT_PAGE_URL).catch(() => ""));
+  const sourceStatus = {};
 
-  const rawEntries = [
-    ...parsePoliceSource(policeText),
-    ...parseEventsHtml(eventsHtml),
-    ...parseBezirksamtSource(bezirksamtText),
-  ].slice(0, options.limit);
+  const fetchSource = async (sourceId, primaryUrl, fallbackUrl, fixturePath) => {
+    try {
+      const text = fixturePath
+        ? await readText(primaryUrl, fixturePath)
+        : await readText(primaryUrl).catch(async (e) =>
+            fallbackUrl ? readText(fallbackUrl) : Promise.reject(e)
+          );
+      sourceStatus[sourceId] = { status: "ok", text };
+      return text;
+    } catch (err) {
+      sourceStatus[sourceId] = { status: "error", error: err.message };
+      return "";
+    }
+  };
+
+  const policeText = await fetchSource(
+    "polizei-berlin",
+    POLICE_RSS_URL,
+    POLICE_PAGE_URL,
+    options.fixturePolice
+  );
+  const eventsHtml = await fetchSource("berlin-events", EVENTS_URL, null, options.fixtureEvents);
+  const bezirksamtText = await fetchSource(
+    "bezirksamt-tk",
+    BEZIRKSAMT_RSS_URL,
+    BEZIRKSAMT_PAGE_URL,
+    options.fixtureBezirksamt
+  );
+
+  const policeEntries = parsePoliceSource(policeText);
+  const eventsEntries = parseEventsHtml(eventsHtml);
+  const bezirksamtEntries = parseBezirksamtSource(bezirksamtText);
+
+  for (const [sourceId, parsed] of [
+    ["polizei-berlin", policeEntries],
+    ["berlin-events", eventsEntries],
+    ["bezirksamt-tk", bezirksamtEntries],
+  ]) {
+    if (sourceStatus[sourceId]?.status === "ok") {
+      sourceStatus[sourceId].parsed = parsed.length;
+      delete sourceStatus[sourceId].text;
+    }
+  }
+
+  const rawEntries = [...policeEntries, ...eventsEntries, ...bezirksamtEntries].slice(
+    0,
+    options.limit
+  );
   const knownIds = new Set(existing.map((entry) => entry.id));
   const newEntries = rawEntries.filter((entry) => !knownIds.has(entry.id));
   const enriched = await enrichWithAI(newEntries, options);
@@ -446,6 +485,22 @@ async function main() {
   console.log(
     `Fetched ${rawEntries.length} relevant entries, ${newEntries.length} new. Dry run: ${options.dryRun}`
   );
+
+  const statusPayload = {
+    last_run: new Date().toISOString(),
+    sources: Object.fromEntries(
+      Object.entries(sourceStatus).map(([id, s]) => [
+        id,
+        s.status === "ok"
+          ? { status: "ok", fetched: newEntries.filter((e) => e.source_id === id).length, parsed: s.parsed ?? 0 }
+          : { status: "error", error: s.error, fetched: 0 },
+      ])
+    ),
+    new_entries: newEntries.length,
+    total_entries: merged.length,
+    dry_run: options.dryRun,
+  };
+  await writeFile(STATUS_PATH, `${JSON.stringify(statusPayload, null, 2)}\n`, "utf8");
 
   if (options.dryRun) return;
 

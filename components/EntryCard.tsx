@@ -39,7 +39,7 @@ export default function EntryCard({ entry }: EntryCardProps) {
 
   return (
     <article
-      className="rounded-lg p-5 transition-all duration-150 hover:-translate-y-px"
+      className="relative rounded-lg p-5 transition-all duration-150 hover:-translate-y-px"
       style={{
         background: "var(--bg-card)",
         border: "1px solid var(--border)",
@@ -54,6 +54,12 @@ export default function EntryCard({ entry }: EntryCardProps) {
         (e.currentTarget as HTMLElement).style.boxShadow = "none";
       }}
     >
+      {entry.is_mock && (
+        <span className="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 rounded font-medium bg-amber-100 text-amber-700">
+          Demo
+        </span>
+      )}
+
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         {entry.tags.map((t: Tag, i: number) => (
           <span key={t}>

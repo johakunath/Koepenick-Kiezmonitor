@@ -33,10 +33,6 @@ export default function FeedPage() {
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
       <Header count={entries.length} />
 
-      <div className="mb-4">
-        <DisclaimerBanner />
-      </div>
-
       <TagFilter activeTags={activeTags} onToggle={toggleTag} onReset={() => setActiveTags([])} />
 
       <main className="px-5">
@@ -54,6 +50,7 @@ export default function FeedPage() {
         </div>
       </main>
 
+      <DisclaimerBanner />
       <Footer />
     </div>
   );
