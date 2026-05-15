@@ -34,7 +34,10 @@ export default function FeedPage() {
 
   const filtered = useMemo(() => {
     return entries.filter((e) => {
-      const tagMatch = activeTags.length === 0 || e.tags.some((t) => activeTags.includes(t));
+      const tagMatch =
+        activeTags.length === 0 ||
+        e.tags.some((t) => activeTags.includes(t)) ||
+        (activeTags.includes("wahl") && e.election_relevant);
       const districtMatch =
         activeDistricts.length === 0 ||
         (e.district != null && activeDistricts.includes(e.district as District));
@@ -60,7 +63,6 @@ export default function FeedPage() {
       <Header count={entries.length} />
 
       <WahlWatch electionCount={entries.filter((e) => e.election_relevant).length} />
-      <DisclaimerBanner />
 
       <TagFilter activeTags={activeTags} onToggle={toggleTag} onReset={() => setActiveTags([])} />
       <DistrictFilter
@@ -70,7 +72,7 @@ export default function FeedPage() {
       />
 
       <main className="px-5 pt-2">
-        <div className="max-w-2xl mx-auto space-y-4">
+        <div className="max-w-2xl lg:max-w-4xl mx-auto space-y-4">
           {sorted.length === 0 ? (
             <div className="text-center py-12 text-sm" style={{ color: "var(--ink-soft)" }}>
               Keine Einträge mit diesen Filtern.
@@ -106,6 +108,7 @@ export default function FeedPage() {
         </div>
       </main>
 
+      <DisclaimerBanner />
       <Footer />
     </div>
   );

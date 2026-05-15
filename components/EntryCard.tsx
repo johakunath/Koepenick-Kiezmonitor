@@ -84,34 +84,21 @@ export default function EntryCard({ entry }: EntryCardProps) {
           </span>
         ))}
         {entry.election_relevant && (
-          <span className="ml-auto shrink-0">
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 4,
-                fontSize: 10,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                color: "var(--brick)",
-                background: "rgba(156,74,46,0.08)",
-                border: "1px solid rgba(156,74,46,0.25)",
-                borderRadius: 4,
-                padding: "2px 6px",
-                fontWeight: 600,
-              }}
-            >
-              <span
-                style={{
-                  width: 5,
-                  height: 5,
-                  borderRadius: 999,
-                  background: "var(--brick)",
-                  display: "inline-block",
-                }}
-              />
-              Wahl 2026
-            </span>
+          <span
+            className="ml-auto shrink-0"
+            style={{
+              fontSize: 9,
+              textTransform: "uppercase",
+              letterSpacing: "0.07em",
+              color: "var(--brick)",
+              border: "1px solid rgba(156,74,46,0.3)",
+              borderRadius: 3,
+              padding: "1px 4px",
+              fontWeight: 600,
+              lineHeight: 1.4,
+            }}
+          >
+            Wahl 26
           </span>
         )}
       </div>
