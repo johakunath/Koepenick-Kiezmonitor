@@ -44,6 +44,42 @@ const KOEPENICK_KEYWORDS = [
   "wuhlheide",
 ];
 
+// District keyword → label (for pre-AI regex fallback, same order as koepenick-geo.ts)
+const DISTRICT_KEYWORDS = [
+  ["altstadt", "Altstadt Köpenick"],
+  ["alt-köpenick", "Altstadt Köpenick"],
+  ["dammvorstadt", "Dammvorstadt"],
+  ["spindlersfeld", "Spindlersfeld"],
+  ["friedrichshagen", "Friedrichshagen"],
+  ["müggelheim", "Müggelheim"],
+  ["mueggelsee", "Müggelheim"],
+  ["müggelsee", "Müggelheim"],
+  ["wendenschloss", "Wendenschloss"],
+  ["grünau", "Grünau"],
+  ["adlershof", "Adlershof"],
+  ["köllnische heide", "Köllnische Heide"],
+  ["rahnsdorf", "Rahnsdorf"],
+  ["schmöckwitz", "Schmöckwitz"],
+  ["bohnsdorf", "Bohnsdorf"],
+  ["niederschöneweide", "Niederschöneweide"],
+  ["oberschöneweide", "Oberschöneweide"],
+  ["johannisthal", "Johannisthal"],
+  ["altglienicke", "Altglienicke"],
+  ["treptow", "Treptow"],
+];
+
+// German address pattern: "Musterstraße 12" or "Muster-Str. 15a"
+const ADDRESS_REGEX = /[A-ZÄÖÜ][a-zäöüß]+-?(?:straße|strasse|str\.|weg|allee|platz|damm|ufer|ring|gasse)\s+\d+\w*/gi;
+
+function inferDistrictFromText(text) {
+  const lc = text.toLocaleLowerCase("de-DE");
+  return DISTRICT_KEYWORDS.find(([kw]) => lc.includes(kw))?.[1] ?? undefined;
+}
+
+function extractAddresses(text) {
+  return [...new Set((text.match(ADDRESS_REGEX) ?? []).map((a) => a.trim()))].slice(0, 5);
+}
+
 function parseArgs() {
   const args = new Set(process.argv.slice(2));
   const valueAfter = (name) => {
@@ -580,10 +616,26 @@ async function enrichWithAI(entries, { skipClaude }) {
   }
 
   const model = process.env.GEMINI_MODEL ?? "gemini-2.0-flash";
+  const districts = DISTRICT_KEYWORDS.map(([, label]) => [...new Set([label])]).flat().filter((v, i, a) => a.indexOf(v) === i);
   const prompt =
-    "Du enrichst Einträge für Köpenick Kiezradar. Antworte ausschließlich als JSON-Array. Behalte id bei. Felder: id, ai_summary, tags, location, location_relevant, local_relevance_score, political_relevance_score, election_relevant, election_topic, ai_reasoning. Tags nur aus: " +
-    TAGS.join(", ") +
-    ". Events nur dann politisch bewerten, wenn sie inhaltlich Wahl-/Politikbezug haben.\n\n" +
+    `Du enrichst Einträge für Köpenick Kiezradar. Antworte ausschließlich als JSON-Array. Behalte id bei.
+
+Pflichtfelder pro Eintrag:
+- id (unverändert)
+- ai_summary: 1–2 Sätze, sachlich, deutsch, was passiert ist
+- tags: Array, nur aus [${TAGS.join(", ")}], max 3, Events nur "politik" wenn inhaltlich Wahl-/Politikbezug
+- location: kurze Ortsbezeichnung im Bezirk
+- location_relevant: boolean
+- local_relevance_score: 0.0–1.0
+- political_relevance_score: 0.0–1.0
+- election_relevant: boolean
+- election_topic: string oder null
+- ai_reasoning: EXAKT 2 Sätze auf Deutsch. Satz 1: Was passiert konkret? Satz 2: Warum ist das für Köpenick-Anwohner relevant? Konkret, kein Marketing-Sprech, max 40 Wörter gesamt.
+- district: Stadtteil aus dieser Liste oder null: [${districts.join(", ")}]
+- street: Hauptstraße wenn erkennbar, sonst null
+- addresses: Array mit erkannten Adressen (Format "Straße Hausnummer"), leer wenn keine
+
+Eingabe:\n\n` +
     JSON.stringify(entries, null, 2);
 
   const response = await fetch(
@@ -609,6 +661,17 @@ async function enrichWithAI(entries, { skipClaude }) {
   const byId = new Map(enriched.map((entry) => [entry.id, entry]));
 
   return entries.map((entry) => ({ ...entry, ...(byId.get(entry.id) ?? {}) }));
+}
+
+function prefillGeoFields(entries) {
+  return entries.map((e) => {
+    if (e.district && e.addresses) return e;
+    const text = `${e.title} ${e.raw_excerpt ?? ""} ${e.location ?? ""}`;
+    const district = e.district ?? inferDistrictFromText(text);
+    const addresses = e.addresses ?? extractAddresses(text);
+    const street = e.street ?? addresses[0]?.replace(/\s+\d+\w*$/, "") ?? undefined;
+    return { ...e, district, addresses, street };
+  });
 }
 
 function mergeEntries(existing, incoming) {
@@ -740,12 +803,12 @@ async function main() {
     ...amtsblattEntries,
   ].slice(0, options.limit);
   const knownIds = new Set(existing.map((entry) => entry.id));
-  const newEntries = rawEntries.filter((entry) => !knownIds.has(entry.id));
+  const newEntries = prefillGeoFields(rawEntries.filter((entry) => !knownIds.has(entry.id)));
 
   let enriched = newEntries;
   let aiError = null;
   try {
-    enriched = await enrichWithAI(newEntries, options);
+    enriched = prefillGeoFields(await enrichWithAI(newEntries, options));
   } catch (err) {
     aiError = err.message;
     console.warn(`AI enrichment skipped: ${aiError}`);

@@ -32,6 +32,9 @@ export interface Entry {
   document_url?: string;
   pdf_page?: number;
   pdf_excerpt?: string;
+  addresses?: string[];
+  district?: string;
+  street?: string;
   is_mock?: boolean;
 }
 
