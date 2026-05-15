@@ -229,7 +229,7 @@ function parseGermanDate(text) {
 
 function parseEventsHtml(html) {
   const eventLinks = [
-    ...html.matchAll(/<a\b[^>]*href="([^"]*kalender[^"]*)"|[^>]*>([\s\S]*?)<\/a>/gi),
+    ...html.matchAll(/<a\b[^>]*href="([^"]*kalender[^"]*)'"[^>]*>([\s\S]*?)<\/a>/gi),
   ];
   const seen = new Set();
 
