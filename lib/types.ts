@@ -35,6 +35,8 @@ export interface Entry {
   addresses?: string[];
   district?: string;
   street?: string;
+  lat?: number;
+  lng?: number;
   is_mock?: boolean;
 }
 

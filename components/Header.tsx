@@ -58,6 +58,13 @@ export default function Header({ count }: HeaderProps) {
           </div>
           <div className="flex items-center gap-3">
             <Link
+              href="/karte"
+              className="text-xs font-medium transition-colors"
+              style={{ color: "var(--water-mid)" }}
+            >
+              Karte
+            </Link>
+            <Link
               href="/woche"
               className="text-xs font-medium transition-colors"
               style={{ color: "var(--water-mid)" }}
