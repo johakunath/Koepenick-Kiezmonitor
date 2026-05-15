@@ -16,8 +16,16 @@ const BEZIRKSAMT_RSS_URL = "https://www.berlin.de/ba-treptow-koepenick/aktuelles
 const BEZIRKSAMT_PAGE_URL = "https://www.berlin.de/ba-treptow-koepenick/aktuelles/pressemitteilungen/";
 const BVV_ALLRIS_RSS_URL = "https://www.berlin.de/presse/pressemitteilungen/index/feed?institutions%5B%5D=Bezirksamt+Treptow-K%C3%B6penick";
 const BVV_ALLRIS_PAGE_URL = "https://www.berlin.de/ba-treptow-koepenick/politik-und-verwaltung/bezirksverordnetenversammlung/";
-const AMTSBLATT_INDEX_URL = "https://www.berlin.de/landesverwaltungsamt/service/amtsblatt-fuer-berlin/";
-const VIZ_BAUSTELLEN_URL = "https://api.viz.berlin.de/api/verkehr/baustellen";
+const AMTSBLATT_INDEX_URLS = [
+  "https://www.berlin.de/landesverwaltungsamt/service/amtsblatt-fuer-berlin/",
+  "https://www.berlin.de/landesverwaltungsamt/zentrale-dienste/amtsblatt-fuer-berlin/",
+  "https://www.berlin.de/sen/justiz/service/amtsblatt-fuer-berlin/",
+];
+const VIZ_BAUSTELLEN_URLS = [
+  "https://api.viz.berlin.de/api/verkehr/baustellen",
+  "https://api.viz.berlin.de/daten/baustellen",
+  "https://viz.berlin.de/api/v1/baustellen",
+];
 
 const TAGS = [
   "verkehr",
@@ -476,15 +484,22 @@ function parseBvvAllrisRss(xml) {
 
 async function fetchAmtsblattEntries() {
   let indexHtml;
-  try {
-    const resp = await fetch(AMTSBLATT_INDEX_URL, {
-      headers: { "user-agent": "Koepenick-Kiezradar/0.2 (+https://github.com/johakunath/Koepenick-Kiezradar)" },
-    });
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    indexHtml = await resp.text();
-  } catch (err) {
-    throw new Error(`Amtsblatt index fetch failed: ${err.message}`);
+  let resolvedBaseUrl;
+  for (const url of AMTSBLATT_INDEX_URLS) {
+    try {
+      const resp = await fetch(url, {
+        headers: { "user-agent": "Koepenick-Kiezradar/0.2 (+https://github.com/johakunath/Koepenick-Kiezradar)" },
+      });
+      if (!resp.ok) { console.log(`Amtsblatt: ${url} → ${resp.status}`); continue; }
+      indexHtml = await resp.text();
+      resolvedBaseUrl = url;
+      console.log(`Amtsblatt: using ${url}`);
+      break;
+    } catch (err) {
+      console.log(`Amtsblatt: ${url} → ${err.message}`);
+    }
   }
+  if (!indexHtml) throw new Error("Amtsblatt index fetch failed: all URLs returned errors");
 
   // Extract links to PDF files from the index page
   const pdfLinks = [
@@ -492,7 +507,7 @@ async function fetchAmtsblattEntries() {
   ]
     .map((m) => {
       const href = m[1];
-      return href.startsWith("http") ? href : new URL(href, AMTSBLATT_INDEX_URL).toString();
+      return href.startsWith("http") ? href : new URL(href, resolvedBaseUrl).toString();
     })
     .filter((url, i, arr) => arr.indexOf(url) === i) // deduplicate
     .slice(0, 3); // only latest 3 PDFs to stay within cost/time budget
@@ -756,7 +771,26 @@ async function main() {
     BVV_ALLRIS_PAGE_URL,
     options.fixtureBvv
   );
-  const vizText = await fetchSource("viz-baustellen", VIZ_BAUSTELLEN_URL, null, options.fixtureViz);
+  let vizText = null;
+  if (options.fixtureViz) {
+    vizText = await fetchSource("viz-baustellen", VIZ_BAUSTELLEN_URLS[0], null, options.fixtureViz);
+  } else {
+    for (const vizUrl of VIZ_BAUSTELLEN_URLS) {
+      try {
+        const resp = await fetch(vizUrl, {
+          headers: { "user-agent": "Koepenick-Kiezradar/0.2 (+https://github.com/johakunath/Koepenick-Kiezradar)" },
+        });
+        if (!resp.ok) { console.log(`VIZ: ${vizUrl} → ${resp.status}`); continue; }
+        vizText = await resp.text();
+        sourceStatus["viz-baustellen"] = { status: "ok" };
+        console.log(`VIZ: using ${vizUrl}`);
+        break;
+      } catch (err) {
+        console.log(`VIZ: ${vizUrl} → ${err.message}`);
+      }
+    }
+    if (!vizText) sourceStatus["viz-baustellen"] = { status: "error", error: "all URLs failed", raw_items: 0 };
+  }
 
   // Amtsblatt: async PDF fetcher with its own error tracking
   let amtsblattEntries = [];
@@ -809,13 +843,16 @@ async function main() {
     }
   }
 
+  // Cap each source individually so a high-volume source (e.g. Events with 400+ items)
+  // cannot crowd out smaller but higher-quality sources (Bezirksamt, BVV, Amtsblatt).
+  const PER_SOURCE_CAP = Math.max(5, Math.floor(options.limit / 3));
   const rawEntries = [
-    ...policeEntries,
-    ...eventsEntries,
-    ...bezirksamtEntries,
-    ...bvvEntries,
-    ...vizEntries,
-    ...amtsblattEntries,
+    ...policeEntries.slice(0, PER_SOURCE_CAP),
+    ...eventsEntries.slice(0, PER_SOURCE_CAP),
+    ...bezirksamtEntries.slice(0, PER_SOURCE_CAP),
+    ...bvvEntries.slice(0, PER_SOURCE_CAP),
+    ...vizEntries.slice(0, PER_SOURCE_CAP),
+    ...amtsblattEntries.slice(0, PER_SOURCE_CAP),
   ].slice(0, options.limit);
   const knownIds = new Set(existing.map((entry) => entry.id));
   const newEntries = prefillGeoFields(rawEntries.filter((entry) => !knownIds.has(entry.id)));
