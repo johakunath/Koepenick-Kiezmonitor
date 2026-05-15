@@ -75,6 +75,8 @@ Hyperlokales Monitoring-Tool für Berlin-Köpenick. Aggregiert lokale Meldungen 
 }
 ```
 
+`tags` ist immer ein Array. Ein Eintrag darf mehrere Tags tragen, z. B. `["verwaltung", "veranstaltung"]`, wenn mehrere Kategorien fachlich passen. Legacy-Einträge mit einzelnem `tag` werden beim Lesen in `tags` überführt.
+
 `location_relevant: false` → Eintrag wird nicht angezeigt (Pre-Filter).
 Scores 0–1, von KI vergeben. Schwellenwert konfigurierbar.
 
@@ -119,7 +121,7 @@ Scores 0–1, von KI vergeben. Schwellenwert konfigurierbar.
 - Header: Logo + Subtitle + Wochen-Link
 - Tag-Filter: 7 Toggle-Chips
 - Ortsfilter und Search-Lite
-- Liste: Cards mit Datum, Titel, KI-Summary (2 Zeilen), Tags, Quelle (Link)
+- Liste: Cards mit Datum, Titel, KI-Summary (2 Zeilen), Mehrfach-Tag-Chips, Quelle (Link)
 - Card-Titel führt auf interne Detailseite, Originalquelle bleibt verlinkt
 - Footer: Disclaimer, "Generiert am [Datum]"
 
@@ -153,7 +155,7 @@ Konkrete Tokens werden in der Implementierung (Tailwind config) definiert.
 
 Hybrid:
 1. **Geofilter (hart):** KI prüft, ob die Meldung Köpenick betrifft. Wenn nein → wird nicht angezeigt.
-2. **Tag-Klassifikation:** KI vergibt 1–3 Tags aus festem Set.
+2. **Tag-Klassifikation:** KI vergibt 1-5 Tags aus festem Set. App-seitig werden zusätzliche Tags aus Quelle, Eventdatum, Wahlbezug und Textsignalen normalisiert.
 3. **Local Relevance Score (0–1):** Wie sehr betrifft das Alltag in Köpenick?
 4. **Political Relevance Score (0–1):** Wie sehr betrifft das lokale Politik / die Wahl 2026?
 5. **Begründung:** Ein Satz, warum diese Meldung relevant ist.
@@ -190,6 +192,7 @@ KI markiert Einträge, die zu diesen Themen passen, mit `election_relevant: true
 - `entries.json` automatisch aktualisiert
 - Monatsarchiv unter `data/archive/YYYY-MM.json`
 - Detailseiten, Themen, Orte, Termine und Quellenübersicht als Düsseldorf-Radar-inspirierte Struktur
+- Mehrfach-Tags pro Eintrag, mit Chips in Cards und Einordnung in mehrere Themen
 - BVV/OParl-Tiefe erst nach stabiler Quellenklärung
 
 ### Iteration 3 — Wochenüberblick + zweite Welle Quellen
@@ -227,13 +230,17 @@ KI markiert Einträge, die zu diesen Themen passen, mit `election_relevant: true
 3. Wie wird der Geofilter sicher? (Polizei-Meldungen erwähnen oft Bezirke, aber nicht immer)
 4. Welches Token-Budget pro Tag für Claude API? Cost-Cap definieren.
 5. Wie wird "Köpenick-relevant" bei stadtweiten Themen (z.B. Sparpolitik) behandelt? Eigene Logik nötig.
+6. Wie werden semantische Duplikate zusammengeführt, ohne Quellenhinweise zu verlieren?
 
 Diese Fragen werden in Iteration 1 nicht beantwortet — explizit Out of Scope.
 
-## 15. Aktueller Implementierungsstand 15.05.2026
+## 15. Aktueller Implementierungsstand 16.05.2026
 
 - Live auf Vercel: https://koepenick-kiezradar.vercel.app/
 - Feed, Wochenüberblick, Karte, Admin-Trigger und RSS-Feed sind vorhanden.
 - Search-Lite, interne Detailseiten, Themen, Orte, Termine und Quellen sind als Datenfundament-Schritt umgesetzt.
+- Mehrfach-Tags werden als `tags: Tag[]` unterstützt und in Cards als Chips angezeigt.
+- Das Gemini-Enrichment nutzt `gemini-2.0-flash` als Standardmodell und darf 1-5 Tags liefern.
 - Parser-Smoke-Tests sichern Polizei- und Event-Parser gegen Navigationsartefakte ab.
 - VIZ und Amtsblatt bleiben technisch vorbereitet, aber defensiv behandelt, weil die Quellen zuletzt nicht stabil erreichbar waren.
+- Nächster Datenqualitäts-Schritt: semantische Duplikate zusammenführen, z. B. Veranstaltung + Bezirksamtsmeldung zur gleichen realen Veranstaltung.

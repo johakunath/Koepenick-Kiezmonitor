@@ -4,7 +4,7 @@
 
 ---
 
-## Stand: 15. Mai 2026
+## Stand: 16. Mai 2026
 
 **Wichtig:** GitHub `main` ist die Quelle der Wahrheit. Vor lokaler Arbeit immer zuerst `git fetch` / Pull bzw. neuen Branch von `origin/main` erstellen.
 
@@ -15,6 +15,7 @@ https://koepenick-kiezradar.vercel.app/
 Der aktuelle Stand enthält deutlich mehr als Iteration 1:
 
 - Feed mit Tagfilter, Ortsfilter, Wahl-Watch und Search-Lite
+- Mehrfach-Tags pro Eintrag; Cards zeigen Tags als Chips
 - Wochenüberblick mit Digest-Unterstützung
 - Karte und geocodierte Einträge
 - Admin-Trigger für Ingestion
@@ -62,6 +63,8 @@ pnpm weekly-digest
 | Ingestion | `scripts/ingest.mjs`, Gemini-Enrichment, GitHub Action Cron |
 | Tests | `pnpm test:parsers` für kritische Parser-Fälle |
 
+Tags sind ein Array (`tags: Tag[]`) und dürfen mehrere Kategorien tragen. Die App normalisiert Tags beim Lesen zusätzlich aus Quelle, Eventdaten, Wahlbezug und Textsignalen. Das KI-Enrichment soll 1-5 Tags liefern.
+
 ---
 
 ## Datenquellen
@@ -90,10 +93,11 @@ pnpm weekly-digest
 
 ## Nächster sinnvoller Schritt
 
-1. Parser-Qualität weiter erhöhen und echte Quellenläufe manuell prüfen.
-2. Interne Detailseiten mit echten Daten gegen Originalquellen reviewen.
-3. Danach entscheiden, ob BVV/OParl, VIZ oder Amtsblatt als nächste robuste Quelle lohnt.
+1. Duplikate zusammenführen: gleiche reale Meldung aus Bezirksamt, Veranstaltungskalender oder BVV als einen kanonischen Eintrag anzeigen.
+2. Mehrere Quellenlinks pro Detailseite speichern und anzeigen.
+3. Danach Parser-Qualität weiter erhöhen und echte Quellenläufe manuell prüfen.
+4. Danach entscheiden, ob BVV/OParl, VIZ oder Amtsblatt als nächste robuste Quelle lohnt.
 
 ---
 
-*Letzte Aktualisierung: 15.05.2026 - nach GitHub-Sync, Claude-Stand und Radar-Depth-Erweiterung*
+*Letzte Aktualisierung: 16.05.2026 - Mehrfach-Tags und nächster Datenqualitäts-Schritt*
