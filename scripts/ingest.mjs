@@ -363,7 +363,7 @@ async function enrichWithAI(entries, { skipClaude }) {
     throw new Error("GEMINI_API_KEY fehlt. Für lokale Tests nutze --skip-ai.");
   }
 
-  const model = process.env.GEMINI_MODEL ?? "gemini-1.5-flash";
+  const model = process.env.GEMINI_MODEL ?? "gemini-2.0-flash";
   const prompt =
     "Du enrichst Einträge für Köpenick Kiezradar. Antworte ausschließlich als JSON-Array. Behalte id bei. Felder: id, ai_summary, tags, location, location_relevant, local_relevance_score, political_relevance_score, election_relevant, election_topic, ai_reasoning. Tags nur aus: " +
     TAGS.join(", ") +
