@@ -428,7 +428,7 @@ async function main() {
   const existing = JSON.parse(await readFile(ENTRIES_PATH, "utf8"));
   const policeText = options.fixturePolice
     ? await readText(POLICE_RSS_URL, options.fixturePolice)
-    : await readText(POLICE_RSS_URL).catch(async () => readText(POLICE_PAGE_URL));
+    : await readText(POLICE_RSS_URL).catch(async () => readText(POLICE_PAGE_URL).catch(() => ""));
   const eventsHtml = await readText(EVENTS_URL, options.fixtureEvents).catch(() => "");
   const bezirksamtText = await readText(BEZIRKSAMT_RSS_URL, options.fixtureBezirksamt)
     .catch(async () => readText(BEZIRKSAMT_PAGE_URL).catch(() => ""));
