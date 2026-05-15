@@ -28,7 +28,7 @@ jobs:
         run: pnpm ingest
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-1.5-flash' }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.0-flash' }}
 
       - name: Commit data changes
         run: |
@@ -38,6 +38,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/entries.json data/archive
+          git add data/entries.json data/archive data/ingest-status.json
           git commit -m "chore: ingest latest kiezradar data"
           git push

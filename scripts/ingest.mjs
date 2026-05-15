@@ -479,7 +479,16 @@ async function main() {
   );
   const knownIds = new Set(existing.map((entry) => entry.id));
   const newEntries = rawEntries.filter((entry) => !knownIds.has(entry.id));
-  const enriched = await enrichWithAI(newEntries, options);
+
+  let enriched = newEntries;
+  let aiError = null;
+  try {
+    enriched = await enrichWithAI(newEntries, options);
+  } catch (err) {
+    aiError = err.message;
+    console.warn(`AI enrichment skipped: ${aiError}`);
+  }
+
   const merged = mergeEntries(existing, enriched);
 
   console.log(
@@ -499,6 +508,7 @@ async function main() {
     new_entries: newEntries.length,
     total_entries: merged.length,
     dry_run: options.dryRun,
+    ...(aiError ? { ai_error: aiError } : {}),
   };
   await writeFile(STATUS_PATH, `${JSON.stringify(statusPayload, null, 2)}\n`, "utf8");
 
