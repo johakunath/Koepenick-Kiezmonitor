@@ -53,7 +53,7 @@ Köpenick Kiezradar ist ein hyperlokales Monitoring-Tool für Berlin-Köpenick, 
 
 - **Aktuell:** Gemini API via `GEMINI_API_KEY` für Enrichment
 - **Modell:** `GEMINI_MODEL` env-var, sonst Script-Default
-- **Max Tokens:** 1000 pro Aufruf reicht für Summary + Tags + Scores
+- **Max Tokens:** 1000 pro Aufruf reicht für Summary + Mehrfach-Tags + Scores
 - **Batching:** Wenn möglich mehrere Einträge in einem Call, max 10 pro Batch
 - **Cost-Cap:** Hard limit 5 € / Tag bei der Ingestion. Wenn überschritten → Action stoppt, Issue erstellen.
 - **Cache:** Bereits enrichte Einträge (per Hash) nicht neu ans LLM schicken.
@@ -70,4 +70,4 @@ Lieber Stopp-and-Ask als blind weiterprogrammieren. Frag konkret, was unklar ist
 
 ## Stand der Iteration
 
-Stand 15.05.2026: App ist live auf Vercel; GitHub `main` ist Quelle der Wahrheit. Vor lokaler Arbeit immer fetch/pull. Aktueller Stand und nächste Schritte: siehe `HANDOVER.md` und `PRD.md §15`.
+Stand 16.05.2026: App ist live auf Vercel; GitHub `main` ist Quelle der Wahrheit. Vor lokaler Arbeit immer fetch/pull. Einträge nutzen Mehrfach-Tags (`tags: Tag[]`), die App normalisiert Tags beim Lesen, und der nächste Datenqualitäts-Schritt ist Duplikate zusammenzuführen. Aktueller Stand und nächste Schritte: siehe `HANDOVER.md` und `PRD.md §15`.

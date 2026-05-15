@@ -6,7 +6,7 @@
 
 🟡 **Experimentelles Privatprojekt zweier Nachbarn.** Vibe-coded mit Claude Code / Codex.
 
-Stand 15.05.2026: Die App ist live auf Vercel unter https://koepenick-kiezradar.vercel.app/. `main` enthält Feed, Wochenüberblick, Karte, Admin-Trigger, RSS-Feed, echte Archivdaten, Ingestion-Status, erste Quellenpipeline und neue Radar-Struktur mit Themen, Orten, Terminen, Quellen und internen Detailseiten.
+Stand 16.05.2026: Die App ist live auf Vercel unter https://koepenick-kiezradar.vercel.app/. `main` enthält Feed, Wochenüberblick, Karte, Admin-Trigger, RSS-Feed, echte Archivdaten, Ingestion-Status, erste Quellenpipeline und neue Radar-Struktur mit Themen, Orten, Terminen, Quellen und internen Detailseiten. PR #14 ergänzt robuste Mehrfach-Tags pro Eintrag.
 
 ## Disclaimer
 
@@ -33,6 +33,8 @@ pnpm weekly-digest
 
 `pnpm ingest` nutzt `GEMINI_API_KEY` für Enrichment. In Produktion läuft der Import über `.github/workflows/daily-ingest.yml` und committet nur, wenn sich Daten ändern.
 
+Das Gemini-Enrichment soll pro Eintrag 1-5 Tags vergeben. Zusätzlich normalisiert die App Tags beim Lesen: Quelle, Veranstaltungsdatum, Wahlbezug und Textsignale können weitere Tags ergänzen. Dadurch kann ein Eintrag z. B. zugleich `verwaltung` und `veranstaltung` sein.
+
 ## Datenhaltung
 
 Vorerst keine Datenbank:
@@ -42,6 +44,8 @@ Vorerst keine Datenbank:
 - `data/weekly/YYYY-Www.json` hält Wochenfazits.
 - `data/topics.json`, `data/districts.json`, `data/sources.json`, `data/meetings.json`, `data/documents.json` liefern die Radar-Navigation.
 - `data/ingest-status.json` zeigt den letzten Quellenlauf.
+
+Einträge nutzen `tags: Tag[]` als Mehrfach-Tags. Ein altes einzelnes `tag`-Feld wird nur noch als Legacy-Fallback akzeptiert und beim Lesen in `tags` überführt.
 
 Eine Datenbank kommt erst bei größerem Archiv, echter Volltextsuche, Admin-Korrektur-UI oder langsamen Builds in Frage.
 
@@ -76,6 +80,10 @@ Eine Datenbank kommt erst bei größerem Archiv, echter Volltextsuche, Admin-Kor
 - Bezirksamt Treptow-Köpenick Pressemitteilungen
 - BVV / politische Dokumente als experimentelle Quelle
 - VIZ Berlin und Amtsblatt sind vorbereitet, aber aktuell fehleranfällig und werden defensiv behandelt.
+
+## Nächster Datenqualitäts-Schritt
+
+Mehrfach-Tags lösen noch keine Duplikate. Wenn dieselbe reale Meldung aus zwei Quellen kommt, z. B. Bezirksamt + Veranstaltungskalender, soll ein nächster PR kanonische Einträge, `duplicate_of`/`canonical_id` und mehrere Quellenlinks pro Detailseite einführen.
 
 ## Lizenz
 

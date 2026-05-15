@@ -6,9 +6,9 @@
 
 ## Current Status
 
-Stand 15.05.2026: GitHub `main` is the source of truth. Always fetch/pull before local work.
+Stand 16.05.2026: GitHub `main` is the source of truth. Always fetch/pull before local work.
 
-Köpenick Kiezradar is live on Vercel at https://koepenick-kiezradar.vercel.app/. It now has feed, filters, Wahl-Watch, map, weekly overview, admin trigger, RSS feed, ingestion status, parser fixtures, archive data, internal detail pages, topics, places, meetings and sources.
+Köpenick Kiezradar is live on Vercel at https://koepenick-kiezradar.vercel.app/. It now has feed, filters, Wahl-Watch, map, weekly overview, admin trigger, RSS feed, ingestion status, parser fixtures, archive data, internal detail pages, topics, places, meetings and sources. Entries support multiple tags via `tags: Tag[]`; cards display tags as chips.
 
 ---
 
@@ -62,6 +62,7 @@ pnpm ingest:dry
 - Keep JSON-as-database until scale or search requires a real DB.
 - Do not add newsletter, accounts, or deep OParl normalization without a fresh plan.
 - If VIZ, Amtsblatt, or other public sources are unstable, treat them defensively instead of forcing brittle imports.
+- Keep multi-tag behavior: do not collapse `tags` back to a single category. Duplicate consolidation is a separate data-quality step.
 
 ---
 
