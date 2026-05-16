@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
-import RadarNav from "@/components/RadarNav";
+import Header from "@/components/Header";
 import { getBodies, getMeetingBySlug, getMeetings } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -17,12 +17,12 @@ export default async function MeetingPage({ params }: { params: Promise<{ slug: 
     : undefined;
 
   return (
-    <main className="min-h-screen px-5 py-8" style={{ background: "var(--bg)" }}>
-      <div className="max-w-2xl lg:max-w-4xl mx-auto">
-        <RadarNav />
-        <Link href="/termine" className="text-xs font-medium" style={{ color: "var(--water-mid)" }}>
-          ← Alle Termine
-        </Link>
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+      <Header />
+      <div className="max-w-[1280px] mx-auto px-5 md:px-20 py-8">
+        <p style={{ fontFamily: "var(--font-inter-tight)", fontSize: 11, color: "var(--ink-mute)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 16 }}>
+          Start › <Link href="/termine" style={{ color: "var(--water-2)", textDecoration: "none" }}>Termine</Link> › {meeting.title}
+        </p>
         <article
           className="mt-6 p-6"
           style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 12 }}
@@ -86,6 +86,6 @@ export default async function MeetingPage({ params }: { params: Promise<{ slug: 
           </a>
         </article>
       </div>
-    </main>
+    </div>
   );
 }

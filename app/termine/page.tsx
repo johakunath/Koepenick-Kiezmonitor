@@ -1,19 +1,19 @@
 import Link from "next/link";
 import { CalendarDays } from "lucide-react";
-import RadarNav from "@/components/RadarNav";
+import Header from "@/components/Header";
 import { getMeetings } from "@/lib/data";
 
 export default function MeetingsPage() {
   const meetings = getMeetings();
 
   return (
-    <main className="min-h-screen px-5 py-8" style={{ background: "var(--bg)" }}>
-      <div className="max-w-2xl lg:max-w-4xl mx-auto">
-        <RadarNav />
-        <Link href="/" className="text-xs font-medium" style={{ color: "var(--water-mid)" }}>
-          ← Zum Feed
-        </Link>
-        <h1 className="text-3xl mt-4 mb-6" style={{ fontFamily: "var(--font-fraunces)", color: "var(--water-deep)" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+      <Header />
+      <div className="max-w-[1280px] mx-auto px-5 md:px-20 py-8">
+        <p style={{ fontFamily: "var(--font-inter-tight)", fontSize: 11, color: "var(--ink-mute)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>
+          Start › Termine
+        </p>
+        <h1 style={{ fontFamily: "var(--font-fraunces)", fontWeight: 500, fontSize: "clamp(22px, 2.5vw, 30px)", color: "var(--ink)", marginBottom: 24 }}>
           Termine
         </h1>
         <div className="space-y-3">
@@ -22,9 +22,9 @@ export default function MeetingsPage() {
               key={meeting.slug}
               href={`/termin/${meeting.slug}`}
               className="block p-4"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 10 }}
+              style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, textDecoration: "none" }}
             >
-              <div className="flex items-center gap-2 text-xs mb-2" style={{ color: "var(--forest)" }}>
+              <div className="flex items-center gap-2 text-xs mb-2" style={{ color: "var(--reed)" }}>
                 <CalendarDays size={14} />
                 {new Date(meeting.meeting_at).toLocaleString("de-DE")}
               </div>
@@ -38,6 +38,6 @@ export default function MeetingsPage() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

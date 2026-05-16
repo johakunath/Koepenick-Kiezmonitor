@@ -1,19 +1,18 @@
-import Link from "next/link";
+import Header from "@/components/Header";
 import EntryCard from "@/components/EntryCard";
-import RadarNav from "@/components/RadarNav";
 import { getDistricts, getEntriesForDistrict } from "@/lib/data";
 
 export default function DistrictsPage() {
   const districts = getDistricts();
 
   return (
-    <main className="min-h-screen px-5 py-8" style={{ background: "var(--bg)" }}>
-      <div className="max-w-2xl lg:max-w-4xl mx-auto">
-        <RadarNav />
-        <Link href="/" className="text-xs font-medium" style={{ color: "var(--water-mid)" }}>
-          ← Zum Feed
-        </Link>
-        <h1 className="text-3xl mt-4 mb-6" style={{ fontFamily: "var(--font-fraunces)", color: "var(--water-deep)" }}>
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+      <Header />
+      <div className="max-w-[1280px] mx-auto px-5 md:px-20 py-8">
+        <p style={{ fontFamily: "var(--font-inter-tight)", fontSize: 11, color: "var(--ink-mute)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>
+          Start › Orte
+        </p>
+        <h1 style={{ fontFamily: "var(--font-fraunces)", fontWeight: 500, fontSize: "clamp(22px, 2.5vw, 30px)", color: "var(--ink)", marginBottom: 24 }}>
           Orte
         </h1>
         <div className="space-y-8">
@@ -44,6 +43,6 @@ export default function DistrictsPage() {
           })}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

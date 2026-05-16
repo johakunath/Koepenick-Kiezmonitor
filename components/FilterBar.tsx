@@ -144,10 +144,33 @@ export default function FilterBar({
             }}
             onClick={() => onToggleTag(tag)}
           >
-            {TAG_LABELS[tag]} <span style={{ opacity: 0.65, fontSize: 11 }}>{count}</span>
+            {TAG_LABELS[tag]}{" "}
+            <span style={{ opacity: 0.65, fontSize: 11 }}>{count}</span>
+            {active && <span style={{ marginLeft: 3, fontSize: 10, opacity: 0.8 }}>×</span>}
           </button>
         );
       })}
+
+      {/* Global reset when any filter is active */}
+      {(activeTags.length > 0 || activeDistricts.length > 0 || query) && (
+        <button
+          onClick={() => {
+            onResetTags();
+            activeDistricts.forEach((d) => onToggleDistrict(d));
+            onQuery("");
+          }}
+          style={{
+            ...chipBase,
+            border: "none",
+            color: "var(--ink-mute)",
+            fontSize: 11,
+            padding: "3px 6px",
+          }}
+          title="Alle Filter zurücksetzen"
+        >
+          ✕
+        </button>
+      )}
 
       {/* Spacer */}
       <div style={{ flex: 1 }} />
