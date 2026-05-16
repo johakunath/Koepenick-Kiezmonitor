@@ -14,7 +14,7 @@ const navItems = [
 
 export default function RadarNav() {
   return (
-    <nav aria-label="Radar-Navigation" className="mb-5 mt-5">
+    <nav aria-label="Radar-Navigation" className="mt-2 mb-1">
       <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
         {navItems.map(({ href, label, icon: Icon }) => (
           <Link
