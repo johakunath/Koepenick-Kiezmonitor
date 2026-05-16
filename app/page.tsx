@@ -75,7 +75,7 @@ export default function FeedPage() {
         </div>
 
         {/* Hero strip with panorama */}
-        <section className="relative pb-6 overflow-hidden">
+        <section className="relative pb-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/illustrations/heron-schloss-panorama.png"
@@ -83,9 +83,9 @@ export default function FeedPage() {
             aria-hidden="true"
             className="illus-mark hidden md:block absolute"
             style={{
-              width: 820,
-              right: 0,
-              top: -10,
+              width: 860,
+              right: -40,
+              top: -20,
               opacity: 0.38,
               pointerEvents: "none",
               zIndex: 0,
@@ -97,9 +97,9 @@ export default function FeedPage() {
                 fontFamily: "var(--font-fraunces)",
                 fontWeight: 500,
                 color: "var(--ink)",
-                fontSize: "clamp(32px, 4vw, 48px)",
-                lineHeight: 1.0,
-                letterSpacing: "-0.025em",
+                fontSize: "clamp(22px, 2.5vw, 30px)",
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
                 margin: 0,
               }}
             >
@@ -110,7 +110,7 @@ export default function FeedPage() {
                 fontFamily: "var(--font-inter-tight)",
                 color: "var(--ink-mute)",
                 fontSize: 13,
-                marginTop: 8,
+                marginTop: 6,
                 lineHeight: 1.5,
               }}
             >

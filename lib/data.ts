@@ -253,9 +253,12 @@ function dedupeEntries(entries: Entry[]): Entry[] {
     // listed under multiple berlin.de categories — dedupe by title+date instead of URL.
     const isEvent = entry.source_id === "berlin-events" || entry.kind === "veranstaltung";
     const eventDay = (entry.event_start_at ?? entry.published_at).slice(0, 10);
-    const key = isEvent
-      ? `${entry.source_id ?? entry.source}|${entry.title}|${eventDay}`
-      : `${entry.source_id ?? entry.source}|${entry.source_url}|${entry.title}`;
+    // berlin-events lists the same exhibition under multiple categories — dedupe by title only
+    const key = entry.source_id === "berlin-events"
+      ? `berlin-events|${entry.title.trim().toLowerCase()}`
+      : isEvent
+        ? `${entry.source_id ?? entry.source}|${entry.title}|${eventDay}`
+        : `${entry.source_id ?? entry.source}|${entry.source_url}|${entry.title}`;
     if (seen.has(key)) continue;
     seen.add(key);
     result.push(entry);

@@ -235,16 +235,33 @@ async function main() {
     }
   }
 
+  // Deduplicate incoming entries before merging (mirrors data.ts dedupeEntries logic)
+  function dedupeRaw(entries) {
+    const seen = new Set();
+    return entries.filter((e) => {
+      const isEvent = e.source_id === "berlin-events" || e.kind === "veranstaltung";
+      const eventDay = (e.event_start_at ?? e.published_at ?? "").slice(0, 10);
+      const key = e.source_id === "berlin-events"
+        ? `berlin-events|${(e.title ?? "").trim().toLowerCase()}`
+        : isEvent
+          ? `${e.source_id ?? e.source}|${e.title}|${eventDay}`
+          : `${e.source_id ?? e.source}|${e.source_url}|${e.title}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
   // Cap per source so high-volume sources don't crowd out smaller/higher-quality ones
   const PER_SOURCE_CAP = Math.max(5, Math.floor(options.limit / 3));
-  const rawEntries = [
+  const rawEntries = dedupeRaw([
     ...policeEntries.slice(0, PER_SOURCE_CAP),
     ...eventsEntries.slice(0, PER_SOURCE_CAP),
     ...bezirksamtEntries.slice(0, PER_SOURCE_CAP),
     ...bvvEntries.slice(0, PER_SOURCE_CAP),
     ...vizEntries.slice(0, PER_SOURCE_CAP),
     ...amtsblattEntries.slice(0, PER_SOURCE_CAP),
-  ].slice(0, options.limit);
+  ]).slice(0, options.limit);
 
   const knownIds = new Set(existing.map((entry) => entry.id));
   const newEntries = prefillGeoFields(rawEntries.filter((entry) => !knownIds.has(entry.id)));

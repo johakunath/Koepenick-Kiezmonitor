@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight, CalendarDays, FileText, MapPin } from "lucide-react";
-import RadarNav from "@/components/RadarNav";
+import Header from "@/components/Header";
 import { getDisplayEntries, getDistrictBySlug, getEntryBySlug, getTopicBySlug } from "@/lib/data";
 import { TAG_LABELS, type Tag } from "@/lib/types";
 
@@ -55,12 +55,12 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ sl
     .slice(0, 3);
 
   return (
-    <main className="min-h-screen px-5 py-8" style={{ background: "var(--bg)" }}>
-      <div className="max-w-2xl lg:max-w-4xl mx-auto">
-        <RadarNav />
-        <Link href="/" className="text-xs font-medium" style={{ color: "var(--water-mid)" }}>
-          ← Zum Feed
-        </Link>
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+      <Header />
+      <div className="max-w-[1280px] mx-auto px-5 md:px-20 py-8">
+        <p style={{ fontFamily: "var(--font-inter-tight)", fontSize: 11, color: "var(--ink-mute)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 16 }}>
+          Start › Feed › Eintrag
+        </p>
 
         <article
           className="mt-6 p-6"
@@ -283,6 +283,6 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ sl
           </section>
         )}
       </div>
-    </main>
+    </div>
   );
 }
