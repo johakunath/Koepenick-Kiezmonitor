@@ -326,139 +326,6 @@
     "is_mock": false
   },
   {
-    "id": "648e77300c63ccac",
-    "source_id": "berlin-events",
-    "source": "Berlin.de Veranstaltungskalender",
-    "source_url": "https://www.berlin.de/land/kalender/index.php?&c=13&date_start=15.05.2026&kategorie[0]=1",
-    "title": "Ausstellungen",
-    "published_at": "2026-05-15T12:00:00.000Z",
-    "ingested_at": "2026-05-15T12:59:53.282Z",
-    "raw_excerpt": "",
-    "ai_summary": "Ausstellungen",
-    "tags": [
-      "veranstaltung"
-    ],
-    "location": "Treptow-Köpenick",
-    "location_relevant": true,
-    "local_relevance_score": 0.75,
-    "political_relevance_score": 0.1,
-    "election_relevant": false,
-    "ai_reasoning": "Veranstaltung im Bezirk Treptow-Köpenick.",
-    "event_start_at": "2026-05-15T12:00:00.000Z",
-    "is_mock": false
-  },
-  {
-    "id": "8e5f98d007605cbc",
-    "source_id": "berlin-events",
-    "source": "Berlin.de Veranstaltungskalender",
-    "source_url": "https://www.berlin.de/land/kalender/index.php?&c=13&date_start=15.05.2026&kategorie[0]=21",
-    "title": "Spaziergänge, Ausflüge",
-    "published_at": "2026-05-15T12:00:00.000Z",
-    "ingested_at": "2026-05-15T12:59:53.282Z",
-    "raw_excerpt": "",
-    "ai_summary": "Spaziergänge, Ausflüge",
-    "tags": [
-      "veranstaltung"
-    ],
-    "location": "Treptow-Köpenick",
-    "location_relevant": true,
-    "local_relevance_score": 0.75,
-    "political_relevance_score": 0.1,
-    "election_relevant": false,
-    "ai_reasoning": "Veranstaltung im Bezirk Treptow-Köpenick.",
-    "event_start_at": "2026-05-15T12:00:00.000Z",
-    "is_mock": false
-  },
-  {
-    "id": "28742a4524b06398",
-    "source_id": "berlin-events",
-    "source": "Berlin.de Veranstaltungskalender",
-    "source_url": "https://www.berlin.de/land/kalender/index.php?&c=13&date_start=15.05.2026&kategorie[0]=121",
-    "title": "Infoveranstaltungen",
-    "published_at": "2026-05-15T12:00:00.000Z",
-    "ingested_at": "2026-05-15T12:59:53.282Z",
-    "raw_excerpt": "",
-    "ai_summary": "Infoveranstaltungen",
-    "tags": [
-      "veranstaltung"
-    ],
-    "location": "Treptow-Köpenick",
-    "location_relevant": true,
-    "local_relevance_score": 0.75,
-    "political_relevance_score": 0.1,
-    "election_relevant": false,
-    "ai_reasoning": "Veranstaltung im Bezirk Treptow-Köpenick.",
-    "event_start_at": "2026-05-15T12:00:00.000Z",
-    "is_mock": false
-  },
-  {
-    "id": "c053bba10513512a",
-    "source_id": "berlin-events",
-    "source": "Berlin.de Veranstaltungskalender",
-    "source_url": "https://www.berlin.de/land/kalender/index.php?&c=13&date_start=15.05.2026&kategorie[0]=19",
-    "title": "Gesundheit, Umwelt",
-    "published_at": "2026-05-15T12:00:00.000Z",
-    "ingested_at": "2026-05-15T12:59:53.282Z",
-    "raw_excerpt": "",
-    "ai_summary": "Gesundheit, Umwelt",
-    "tags": [
-      "veranstaltung"
-    ],
-    "location": "Treptow-Köpenick",
-    "location_relevant": true,
-    "local_relevance_score": 0.75,
-    "political_relevance_score": 0.1,
-    "election_relevant": false,
-    "ai_reasoning": "Veranstaltung im Bezirk Treptow-Köpenick.",
-    "event_start_at": "2026-05-15T12:00:00.000Z",
-    "is_mock": false
-  },
-  {
-    "id": "eebe9ed021adfaf4",
-    "source_id": "berlin-events",
-    "source": "Berlin.de Veranstaltungskalender",
-    "source_url": "https://www.berlin.de/land/kalender/index.php?&c=13&date_start=15.05.2026&kategorie[0]=7",
-    "title": "Politik, Bürgerservice",
-    "published_at": "2026-05-15T12:00:00.000Z",
-    "ingested_at": "2026-05-15T12:59:53.282Z",
-    "raw_excerpt": "",
-    "ai_summary": "Politik, Bürgerservice",
-    "tags": [
-      "veranstaltung",
-      "politik"
-    ],
-    "location": "Treptow-Köpenick",
-    "location_relevant": true,
-    "local_relevance_score": 0.75,
-    "political_relevance_score": 0.1,
-    "election_relevant": false,
-    "ai_reasoning": "Veranstaltung im Bezirk Treptow-Köpenick.",
-    "event_start_at": "2026-05-15T12:00:00.000Z",
-    "is_mock": false
-  },
-  {
-    "id": "48b21ca8aa49f2f3",
-    "source_id": "berlin-events",
-    "source": "Berlin.de Veranstaltungskalender",
-    "source_url": "https://www.berlin.de/land/kalender/index.php?ls=290&c=13&date_start=15.05.2026",
-    "title": "Seite 30",
-    "published_at": "2026-05-15T12:00:00.000Z",
-    "ingested_at": "2026-05-15T12:59:53.283Z",
-    "raw_excerpt": "",
-    "ai_summary": "Seite 30",
-    "tags": [
-      "veranstaltung"
-    ],
-    "location": "Treptow-Köpenick",
-    "location_relevant": true,
-    "local_relevance_score": 0.75,
-    "political_relevance_score": 0.1,
-    "election_relevant": false,
-    "ai_reasoning": "Veranstaltung im Bezirk Treptow-Köpenick.",
-    "event_start_at": "2026-05-15T12:00:00.000Z",
-    "is_mock": false
-  },
-  {
     "id": "2404032fb32f5cb9",
     "source_id": "bezirksamt-tk",
     "source": "Bezirksamt Treptow-Köpenick",
@@ -519,7 +386,9 @@
     "political_relevance_score": 0.3,
     "election_relevant": false,
     "ai_reasoning": "Offizielle Pressemitteilung des Bezirksamts Treptow-Köpenick.",
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4450491,
+    "lng": 13.5754153
   },
   {
     "id": "ea00b9c5b7611576",
@@ -591,7 +460,9 @@
     "ai_reasoning": "Die Veranstaltung ist lokal erreichbar und stärkt Austausch im unmittelbaren Kiez.",
     "event_start_at": "2026-05-22T14:00:00+02:00",
     "venue": "Volkspark Köpenick",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4508,
+    "lng": 13.565
   },
   {
     "id": "079087126b3a8e53",
@@ -616,7 +487,9 @@
     "document_url": "https://www.berlin.de/ba-treptow-koepenick/aktuelles/pressemitteilungen/2026/pressemitteilung.1670228.php",
     "district": "Treptow",
     "addresses": [],
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4450491,
+    "lng": 13.5754153
   },
   {
     "id": "1",
@@ -635,7 +508,9 @@
     "election_relevant": true,
     "election_topic": "Innere Sicherheit",
     "ai_reasoning": "Direkter Bezug zur Altstadt, Wahlkampfthema Innere Sicherheit ist aktiv.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4578,
+    "lng": 13.5712
   },
   {
     "id": "2",
@@ -655,7 +530,9 @@
     "election_relevant": true,
     "election_topic": "Innere Sicherheit",
     "ai_reasoning": "BVV-Antrag mit direktem Bezug zu Köpenick und Wahlkampfthema.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4543,
+    "lng": 13.5823
   },
   {
     "id": "f2d9e3828dc9a608",
@@ -680,7 +557,9 @@
     "document_url": "https://www.berlin.de/ba-treptow-koepenick/aktuelles/pressemitteilungen/2026/pressemitteilung.1671067.php",
     "district": "Treptow",
     "addresses": [],
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4450491,
+    "lng": 13.5754153
   },
   {
     "id": "2bccbb2e952b6d73",
@@ -701,7 +580,9 @@
     "political_relevance_score": 0.3,
     "election_relevant": false,
     "ai_reasoning": "Offizielle Pressemitteilung des Bezirksamts Treptow-Köpenick.",
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4450491,
+    "lng": 13.5754153
   },
   {
     "id": "4aee52c7bf8d957f",
@@ -744,7 +625,9 @@
     "political_relevance_score": 0.3,
     "election_relevant": false,
     "ai_reasoning": "Offizielle Pressemitteilung des Bezirksamts Treptow-Köpenick.",
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4450491,
+    "lng": 13.5754153
   },
   {
     "id": "2b56046690ee499c",
@@ -765,7 +648,9 @@
     "political_relevance_score": 0.3,
     "election_relevant": false,
     "ai_reasoning": "Offizielle Pressemitteilung des Bezirksamts Treptow-Köpenick.",
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4450491,
+    "lng": 13.5754153
   },
   {
     "id": "402c9cec9c300182",
@@ -808,7 +693,9 @@
     "political_relevance_score": 0.3,
     "election_relevant": false,
     "ai_reasoning": "Offizielle Pressemitteilung des Bezirksamts Treptow-Köpenick.",
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4450491,
+    "lng": 13.5754153
   },
   {
     "id": "7bdc4d88a45265a8",
@@ -836,7 +723,9 @@
       "Ortolfstr. 164"
     ],
     "street": "Ortolfstr.",
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4043458,
+    "lng": 13.5293307
   },
   {
     "id": "3",
@@ -854,7 +743,9 @@
     "political_relevance_score": 0.2,
     "election_relevant": false,
     "ai_reasoning": "Lokal hochrelevant für Anwohner und Sommer-Aktivitäten in Köpenick.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4367,
+    "lng": 13.65
   },
   {
     "id": "ece17463edd72a70",
@@ -880,7 +771,9 @@
     "document_url": "https://www.berlin.de/ba-treptow-koepenick/aktuelles/pressemitteilungen/2026/pressemitteilung.1670882.php",
     "district": "Spindlersfeld",
     "addresses": [],
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4468976,
+    "lng": 13.5615738
   },
   {
     "id": "13b8a89c81929ef9",
@@ -905,7 +798,9 @@
     "document_url": "https://www.berlin.de/ba-treptow-koepenick/aktuelles/pressemitteilungen/2026/pressemitteilung.1670843.php",
     "district": "Treptow",
     "addresses": [],
-    "is_mock": false
+    "is_mock": false,
+    "lat": 52.4450491,
+    "lng": 13.5754153
   },
   {
     "id": "4",
@@ -924,7 +819,9 @@
     "political_relevance_score": 0.15,
     "election_relevant": false,
     "ai_reasoning": "Lange Sperrung mit erheblichem Einfluss auf den Alltag in Spindlersfeld.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4679,
+    "lng": 13.5673
   },
   {
     "id": "c0de61da60a5422e",
@@ -971,7 +868,9 @@
     "election_relevant": true,
     "election_topic": "Bildung",
     "ai_reasoning": "Klares Wahlkampfthema Bildung, direkt mit Wahlkreis verknüpft.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4679,
+    "lng": 13.5673
   },
   {
     "id": "5",
@@ -989,7 +888,9 @@
     "political_relevance_score": 0.25,
     "election_relevant": false,
     "ai_reasoning": "Alltagsrelevant, aber wenig politisch aufgeladen.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4554,
+    "lng": 13.5758
   },
   {
     "id": "6bc0051bb696a230",
@@ -1050,7 +951,9 @@
     "political_relevance_score": 0.3,
     "election_relevant": false,
     "ai_reasoning": "Einzelfall, aber Hinweis auf bekannte Gefahrenstelle.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4578,
+    "lng": 13.5712
   },
   {
     "id": "f79990e67d325ed0",
@@ -1177,7 +1080,9 @@
     "election_relevant": true,
     "election_topic": "Sicherheit / Resilienz",
     "ai_reasoning": "Direkte Reaktion auf das Blackout-Trauma, Resilienz ist Wahlthema.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4555,
+    "lng": 13.58
   },
   {
     "id": "9",
@@ -1196,7 +1101,9 @@
     "election_relevant": true,
     "election_topic": "Wahl 2026",
     "ai_reasoning": "Wahl-organisatorisch zentral, direkter Bezug zum Bezirk.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4578,
+    "lng": 13.5712
   },
   {
     "id": "10",
@@ -1216,7 +1123,9 @@
     "election_relevant": true,
     "election_topic": "Wohnen",
     "ai_reasoning": "Wohnen ist das Top-Wahlthema, konkreter Bauantrag in unmittelbarer Nachbarschaft.",
-    "is_mock": true
+    "is_mock": true,
+    "lat": 52.4601,
+    "lng": 13.5694
   },
   {
     "id": "6a3a4d02ed7a8ad6",
