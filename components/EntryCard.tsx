@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, CalendarDays, ChevronDown, ChevronUp, MapPin } from "lucide-react";
+import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
 import type { Entry, Tag } from "@/lib/types";
 import { slugify } from "@/lib/slug";
 import { TAG_LABELS } from "@/lib/types";
@@ -45,13 +44,8 @@ interface EntryCardProps {
 }
 
 export default function EntryCard({ entry }: EntryCardProps) {
-  const [reasoningOpen, setReasoningOpen] = useState(false);
   const eventDate = formatEventDate(entry.event_start_at);
   const detailHref = `/eintrag/${entry.slug ?? slugify(entry.title)}`;
-  const reasoning =
-    entry.ai_reasoning && entry.ai_reasoning.trim().length > 0
-      ? entry.ai_reasoning
-      : `Aus Quelle ${entry.source}. Originallink prüfen für vollständigen Kontext.`;
   const accentColor = TAG_ACCENT[entry.tags[0]] ?? "var(--border)";
 
   return (
@@ -181,30 +175,6 @@ export default function EntryCard({ entry }: EntryCardProps) {
         </a>
       </div>
 
-      <Link
-        href={detailHref}
-        className="inline-block text-xs mt-3 font-medium"
-        style={{ color: "var(--water-mid)" }}
-      >
-        Details im Radar
-      </Link>
-
-      <button
-        onClick={() => setReasoningOpen((v) => !v)}
-        className="flex items-center gap-1 text-xs mt-3 transition-opacity opacity-60 hover:opacity-100"
-        style={{ color: "var(--ink-soft)" }}
-      >
-        {reasoningOpen ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-        Warum relevant?
-      </button>
-      {reasoningOpen && (
-        <p
-          className="text-xs mt-1 leading-relaxed"
-          style={{ color: "var(--ink-soft)", fontStyle: "italic" }}
-        >
-          {reasoning}
-        </p>
-      )}
     </article>
   );
 }
