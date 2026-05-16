@@ -8,6 +8,17 @@ import { slugify } from "@/lib/slug";
 import { TAG_LABELS } from "@/lib/types";
 import RelevanceWaves from "@/components/RelevanceWaves";
 
+const TAG_ACCENT: Partial<Record<Tag, string>> = {
+  wahl:          "var(--brick)",
+  politik:       "var(--brick)",
+  verkehr:       "var(--water-mid)",
+  infrastruktur: "var(--water-mid)",
+  verwaltung:    "var(--ink-soft)",
+  sicherheit:    "#a05020",
+  veranstaltung: "var(--forest)",
+  sonstiges:     "var(--sand)",
+};
+
 function timeAgo(iso: string): string {
   const now = new Date();
   const d = new Date(iso);
@@ -41,6 +52,7 @@ export default function EntryCard({ entry }: EntryCardProps) {
     entry.ai_reasoning && entry.ai_reasoning.trim().length > 0
       ? entry.ai_reasoning
       : `Aus Quelle ${entry.source}. Originallink prüfen für vollständigen Kontext.`;
+  const accentColor = TAG_ACCENT[entry.tags[0]] ?? "var(--border)";
 
   return (
     <article
@@ -49,6 +61,7 @@ export default function EntryCard({ entry }: EntryCardProps) {
         borderRadius: 12,
         background: "var(--bg-card)",
         border: "1px solid var(--border)",
+        borderTop: `3px solid ${accentColor}`,
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.borderColor = "var(--water-mid)";
