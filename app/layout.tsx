@@ -35,12 +35,21 @@ export default function RootLayout({
       </head>
       <body className="min-h-full">
         {/* ── Background illustrations: zIndex 5 = above content (1), below header (20) ── */}
-        {/* Panorama — top right desktop, full-width mobile */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/illustrations/heron-schloss-panorama.png" alt="" aria-hidden="true"
-          className="illus-mark hidden md:block"
-          style={{ position: "fixed", top: 0, left: "50%", transform: "translateX(-50%)", width: 900, opacity: 0.20, pointerEvents: "none", zIndex: 5 }}
-        />
+        {/* Panorama — centered desktop; gradient fades left portion so panorama heron doesn't ghost over feed */}
+        <div
+          className="hidden md:block"
+          style={{
+            position: "fixed", top: 0, left: "50%", transform: "translateX(-50%)", width: 900, zIndex: 5, pointerEvents: "none",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, transparent 20%, white 45%, white 100%)",
+            maskImage: "linear-gradient(to right, transparent 0%, transparent 20%, white 45%, white 100%)",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/illustrations/heron-schloss-panorama.png" alt="" aria-hidden="true"
+            className="illus-mark"
+            style={{ width: "100%", opacity: 0.20, pointerEvents: "none", display: "block" }}
+          />
+        </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/illustrations/heron-schloss-panorama.png" alt="" aria-hidden="true"
           className="illus-mark md:hidden"
