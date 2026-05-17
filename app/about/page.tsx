@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "@/components/Header";
 import IllusBanner from "@/components/IllusBanner";
 import { getSources } from "@/lib/data";
