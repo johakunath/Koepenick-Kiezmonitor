@@ -51,13 +51,13 @@ export default function RootLayout({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/illustrations/illus-reeds.png" alt="" aria-hidden="true"
           className="illus-mark hidden md:block"
-          style={{ position: "fixed", left: -10, top: "58vh", width: 260, opacity: 0.25, pointerEvents: "none", zIndex: 5 }}
+          style={{ position: "fixed", left: 20, top: "58vh", width: 260, opacity: 0.25, pointerEvents: "none", zIndex: 5 }}
         />
         {/* Carp — right edge, lower */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/illustrations/illus-carp.png" alt="" aria-hidden="true"
           className="illus-mark hidden md:block"
-          style={{ position: "fixed", right: -20, top: "72vh", width: 260, opacity: 0.25, pointerEvents: "none", zIndex: 5 }}
+          style={{ position: "fixed", right: 30, top: "72vh", width: 260, opacity: 0.25, pointerEvents: "none", zIndex: 5 }}
         />
         {/* ── Mobile illustrations — small edge accents only ── */}
         {/* Reeds — bottom left */}
