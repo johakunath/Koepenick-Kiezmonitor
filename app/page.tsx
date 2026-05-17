@@ -6,7 +6,6 @@ import { getDisplayEntries, searchEntries } from "@/lib/data";
 import Header from "@/components/Header";
 import EntryCard from "@/components/EntryCard";
 import FilterBar from "@/components/FilterBar";
-import IllusMark from "@/components/IllusMark";
 import IllusBanner from "@/components/IllusBanner";
 
 const allEntries = getDisplayEntries();
@@ -89,26 +88,6 @@ export default function FeedPage() {
           </div>
         </section>
 
-        {/* Watermark illustrations — desktop only */}
-        <IllusMark
-          src="/illustrations/illus-heron.png"
-          width={220}
-          className="top-[320px] right-[0px] hidden md:block"
-          opacity={0.28}
-        />
-        <IllusMark
-          src="/illustrations/illus-reeds.png"
-          width={180}
-          className="top-[720px] left-[0px] hidden md:block"
-          opacity={0.26}
-        />
-        <IllusMark
-          src="/illustrations/illus-carp.png"
-          width={170}
-          className="top-[1120px] right-[0px] hidden md:block"
-          opacity={0.28}
-        />
-
         {/* Filter bar */}
         <FilterBar
           baseEntries={baseFiltered}
@@ -160,7 +139,7 @@ export default function FeedPage() {
 
       {/* Footer */}
       <footer className="relative mt-8" style={{ borderTop: "1px solid var(--rule)" }}>
-        <IllusBanner opacity={0.45} />
+        <IllusBanner />
         <div className="mx-auto max-w-[1280px] px-5 md:px-20 py-6 text-center">
           <p
             style={{
