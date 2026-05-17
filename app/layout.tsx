@@ -39,7 +39,7 @@ export default function RootLayout({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/illustrations/heron-schloss-panorama.png" alt="" aria-hidden="true"
           className="illus-mark hidden md:block"
-          style={{ position: "fixed", top: 0, right: 0, width: 900, opacity: 0.20, pointerEvents: "none", zIndex: 5 }}
+          style={{ position: "fixed", top: 0, left: "50%", transform: "translateX(-50%)", width: 900, opacity: 0.20, pointerEvents: "none", zIndex: 5 }}
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/illustrations/heron-schloss-panorama.png" alt="" aria-hidden="true"
