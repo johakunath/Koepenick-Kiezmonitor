@@ -144,7 +144,9 @@ export function inferLocation(text) {
     ["dammvorstadt", "Dammvorstadt"],
     ["müggelsee", "Müggelsee"],
     ["mueggelsee", "Müggelsee"],
-    ["bahnhof", "Bahnhof Köpenick"],
+    // "bahnhof" alone is too broad — require "bahnhof köpenick" to avoid mismatching other stations
+    ["bahnhof köpenick", "Bahnhof Köpenick"],
+    ["s köpenick", "Bahnhof Köpenick"],
     ["altstadt", "Altstadt Köpenick"],
     ["alt-köpenick", "Altstadt Köpenick"],
     ["köpenick", "Köpenick"],
