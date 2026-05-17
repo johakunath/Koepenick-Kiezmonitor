@@ -35,11 +35,16 @@ export default function RootLayout({
       </head>
       <body className="min-h-full">
         {/* ── Background illustrations: zIndex 5 = above content (1), below header (20) ── */}
-        {/* Panorama — top right, desktop only */}
+        {/* Panorama — top right desktop, full-width mobile */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/illustrations/heron-schloss-panorama.png" alt="" aria-hidden="true"
           className="illus-mark hidden md:block"
           style={{ position: "fixed", top: 0, right: 0, width: 900, opacity: 0.20, pointerEvents: "none", zIndex: 5 }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/illustrations/heron-schloss-panorama.png" alt="" aria-hidden="true"
+          className="illus-mark md:hidden"
+          style={{ position: "fixed", top: 0, left: 0, width: "100%", opacity: 0.18, pointerEvents: "none", zIndex: 5 }}
         />
         {/* Heron — right edge, mid viewport */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -51,13 +56,13 @@ export default function RootLayout({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/illustrations/illus-reeds.png" alt="" aria-hidden="true"
           className="illus-mark hidden md:block"
-          style={{ position: "fixed", left: -10, top: "58vh", width: 260, opacity: 0.25, pointerEvents: "none", zIndex: 5 }}
+          style={{ position: "fixed", left: 20, top: "58vh", width: 260, opacity: 0.25, pointerEvents: "none", zIndex: 5 }}
         />
         {/* Carp — right edge, lower */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/illustrations/illus-carp.png" alt="" aria-hidden="true"
           className="illus-mark hidden md:block"
-          style={{ position: "fixed", right: -20, top: "72vh", width: 260, opacity: 0.25, pointerEvents: "none", zIndex: 5 }}
+          style={{ position: "fixed", right: 30, top: "72vh", width: 260, opacity: 0.25, pointerEvents: "none", zIndex: 5 }}
         />
         {/* ── Mobile illustrations — small edge accents only ── */}
         {/* Reeds — bottom left */}

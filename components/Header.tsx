@@ -20,10 +20,29 @@ export default function Header() {
   return (
     <header
       className="sticky top-0 z-20 w-full"
-      style={{ background: "var(--bg)", borderBottom: "1px solid var(--rule)" }}
+      style={{ background: "var(--bg)", borderBottom: "1px solid var(--rule)", position: "relative", overflow: "hidden" }}
     >
+      {/* Watercolor accent — panorama fades in from right */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/illustrations/heron-schloss-panorama.png"
+        alt=""
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          right: 0,
+          top: 0,
+          height: "200%",
+          width: "auto",
+          opacity: 0.08,
+          mixBlendMode: "multiply",
+          pointerEvents: "none",
+          objectFit: "cover",
+          objectPosition: "right bottom",
+        }}
+      />
       {/* Main row */}
-      <div className="mx-auto max-w-[1280px] px-5 md:px-20 flex items-center gap-5 h-[60px]">
+      <div className="relative mx-auto max-w-[1280px] px-5 md:px-20 flex items-center gap-5 h-[60px]">
         {/* Wordmark */}
         <Link href="/" style={{ textDecoration: "none", flexShrink: 0 }}>
           <div
