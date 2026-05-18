@@ -225,7 +225,7 @@ export default function AboutPage() {
               color: "var(--ink-soft)",
             }}
           >
-            Der <a href="https://github.com/johakunath/Koepenick-Kiezradar" target="_blank" rel="noopener noreferrer" style={{ color: "var(--water)", textDecoration: "underline" }}>Quellcode ist offen einsehbar</a>. Keine Garantie auf Vollständigkeit oder
+            Der Quellcode ist offen einsehbar. Keine Garantie auf Vollständigkeit oder
             Aktualität — alle verlinkten Originale bleiben die maßgebliche Quelle.
           </p>
         </section>
