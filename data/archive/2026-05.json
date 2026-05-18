@@ -1,5 +1,32 @@
 [
   {
+    "id": "8b3cfbb3cd988d59",
+    "source_id": "berlin-events",
+    "source": "Berlin.de Veranstaltungskalender",
+    "source_url": "https://www.berlin.de/land/kalender/index.php?detail=277177&ls=0&c=13&date_start=18.05.2026",
+    "title": "Forced to Work – Willing to Survive | Zwangsarbeit in Vergangenheit und Gegenwart",
+    "published_at": "2026-05-21T10:00:00.000Z",
+    "ingested_at": "2026-05-18T07:27:18.505Z",
+    "raw_excerpt": "Ort: Dokumentationszentrum NS-Zwangsarbeit in Treptow-Köpenick",
+    "ai_summary": "Veranstaltung am 21. Mai um 10:00 in Dokumentationszentrum NS-Zwangsarbeit in Treptow-Köpenick.",
+    "tags": [
+      "veranstaltung"
+    ],
+    "location": "Köpenick",
+    "location_relevant": true,
+    "local_relevance_score": 0.75,
+    "political_relevance_score": 0.1,
+    "election_relevant": false,
+    "ai_reasoning": "Veranstaltung im Bezirk Treptow-Köpenick.",
+    "event_start_at": "2026-05-21T10:00:00.000Z",
+    "venue": "Dokumentationszentrum NS-Zwangsarbeit in Treptow-Köpenick",
+    "district": "Treptow",
+    "addresses": [],
+    "lat": 52.4450491,
+    "lng": 13.5754153,
+    "is_mock": false
+  },
+  {
     "id": "c25fdea2fb75cfd0",
     "source_id": "berlin-events",
     "source": "Berlin.de Veranstaltungskalender",
@@ -105,6 +132,29 @@
     "addresses": [],
     "lat": 52.4450491,
     "lng": 13.5754153,
+    "is_mock": false
+  },
+  {
+    "id": "05ee03a547f99852",
+    "source_id": "bezirksamt-tk",
+    "source": "Bezirksamt Treptow-Köpenick",
+    "source_url": "https://www.berlin.de/ba-treptow-koepenick/aktuelles/pressemitteilungen/2026/pressemitteilung.1671273.php",
+    "title": "Kieztour Adlershof am 6. Juni 2026 - eine Runde durch den Kiez – jetzt anmelden!",
+    "published_at": "2026-05-18T12:00:00.000Z",
+    "ingested_at": "2026-05-18T07:27:18.506Z",
+    "raw_excerpt": "",
+    "ai_summary": "Offizielle Meldung des Bezirksamts Treptow-Köpenick. Details stehen in der Originalquelle.",
+    "tags": [
+      "verwaltung"
+    ],
+    "location": "Treptow-Köpenick",
+    "location_relevant": true,
+    "local_relevance_score": 0.7,
+    "political_relevance_score": 0.3,
+    "election_relevant": false,
+    "ai_reasoning": "Offizielle Pressemitteilung des Bezirksamts Treptow-Köpenick.",
+    "district": "Adlershof",
+    "addresses": [],
     "is_mock": false
   },
   {
