@@ -65,6 +65,23 @@ function MetaRow({ entry }: { entry: Entry }) {
         <span style={{ color: "var(--rule)" }}>·</span>
         <span style={{ whiteSpace: "nowrap" }}>{formatDate(entry.published_at)}</span>
         <span style={{ color: "var(--rule)" }}>·</span>
+        {entry.source_id === "tagesspiegel-leute-tk" && (
+          <span
+            style={{
+              fontSize: 9,
+              fontWeight: 700,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: "#e60028",
+              background: "rgba(230,0,40,0.08)",
+              padding: "1px 5px",
+              borderRadius: 3,
+              whiteSpace: "nowrap",
+            }}
+          >
+            Tagesspiegel Leute
+          </span>
+        )}
         <a
           href={entry.source_url}
           target="_blank"

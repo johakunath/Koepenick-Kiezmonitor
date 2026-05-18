@@ -8,6 +8,7 @@ import { parseEventsHtml, EVENTS_URL } from "./sources/events.mjs";
 import { parseBezirksamtSource, BEZIRKSAMT_RSS_URL, BEZIRKSAMT_PAGE_URL } from "./sources/bezirksamt.mjs";
 import { parseBvvAllrisRss, BVV_ALLRIS_RSS_URL, BVV_ALLRIS_PAGE_URL } from "./sources/bvv.mjs";
 import { fetchAmtsblattEntries } from "./sources/amtsblatt.mjs";
+import { fetchTagespiegelLeuteEntries } from "./sources/tagesspiegel-leute.mjs";
 import { parseVizBaustellenGeoJson, VIZ_BAUSTELLEN_URLS, resolveVizUrl } from "./sources/viz.mjs";
 import { enrichWithAI } from "./lib/enrich.mjs";
 import { geocodeEntries } from "./lib/geocode.mjs";
@@ -37,6 +38,7 @@ function parseArgs() {
     fixtureBvv: valueAfter("--fixture-bvv"),
     fixtureViz: valueAfter("--fixture-viz"),
     skipAmtsblatt: args.has("--skip-amtsblatt"),
+    skipTagesspiegel: args.has("--skip-tagesspiegel"),
     limit: Number(valueAfter("--limit") ?? "25"),
   };
 }
@@ -203,6 +205,30 @@ async function main() {
     };
   }
 
+  let tagespiegelLeuteEntries = [];
+  try {
+    if (!options.skipTagesspiegel) {
+      tagespiegelLeuteEntries = await fetchTagespiegelLeuteEntries();
+      sourceStatus["tagesspiegel-leute-tk"] = {
+        status: "ok",
+        parsed: tagespiegelLeuteEntries.length,
+        raw_items: tagespiegelLeuteEntries.length,
+      };
+    } else {
+      sourceStatus["tagesspiegel-leute-tk"] = {
+        status: "skipped",
+        error: "Optionale Quelle in diesem Lauf übersprungen",
+        raw_items: 0,
+      };
+    }
+  } catch (err) {
+    sourceStatus["tagesspiegel-leute-tk"] = {
+      status: "skipped",
+      error: `Optionale Quelle aktuell nicht erreichbar: ${err.message}`,
+      raw_items: 0,
+    };
+  }
+
   const policeEntries = parsePoliceSource(policeText);
   const eventsEntries = parseEventsHtml(eventsHtml);
   const bezirksamtEntries = parseBezirksamtSource(bezirksamtText);
@@ -271,6 +297,7 @@ async function main() {
     ...bvvEntries.slice(0, PER_SOURCE_CAP),
     ...vizEntries.slice(0, PER_SOURCE_CAP),
     ...amtsblattEntries.slice(0, PER_SOURCE_CAP),
+    ...tagespiegelLeuteEntries.slice(0, PER_SOURCE_CAP),
   ]).slice(0, options.limit);
 
   const knownIds = new Set(existing.map((entry) => entry.id));

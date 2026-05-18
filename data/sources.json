@@ -46,5 +46,13 @@
     "type": "pdf",
     "status": "error",
     "notes": "Index-URLs waren im letzten Lauf nicht erreichbar."
+  },
+  {
+    "id": "tagesspiegel-leute-tk",
+    "name": "Tagesspiegel Leute Treptow-Köpenick",
+    "url": "https://leute.tagesspiegel.de/treptow-koepenick/",
+    "type": "email",
+    "status": "experimental",
+    "notes": "Wöchentlicher Newsletter via Gmail API. Benötigt GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN als GitHub Secrets."
   }
 ]
